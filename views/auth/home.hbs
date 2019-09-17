@@ -105,10 +105,11 @@
 
 <body>
   <header>
+    <p id="recognised" style="display: none"></p>
     <h1>Welcolme to Iter</h1>
     {{!-- SIGN-UP --}}
     <form action="/auth/signup" class="signup" method='POST'>
-      <p id="recognised" style="display: none"></p>
+
       <input type="text" placeholder="Username" name="username">
       <input type="password" placeholder="Password" name="password">
       <button class="btn sign-up"><i class="fa fa-sign-in"></i> Sign-Up</button>
@@ -128,12 +129,13 @@
 
     {{!-- SOCIAL LOGIN --}}
     <div class="login">
-      <button class=" btn fb log-fb"><i class="fa fa-facebook"> </i> <a href="/auth/facebook">Login with
+      <button class="btn fb"><i class="fa fa-facebook"> </i> <a class="log-fb" href="/auth/facebook">Login with
           Facebook</a></button>
     </div>
 
   </header>
   <script src="/javascripts/script_artyom.js"></script>
+  {{!-- <script src="/javascripts/commands.js"></script> --}}
 
 </body>
 

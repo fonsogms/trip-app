@@ -31,7 +31,7 @@ setInterval(() => {
       document.location.href = "/result";
     }
   }, 5000);
-}, 1000);
+}, 8000);
 
 // RESULT -> BACK TO SEARCH
 setInterval(() => {
@@ -42,7 +42,7 @@ setInterval(() => {
       document.location.href = "/search";
     }
   }, 3000);
-}, 1000);
+}, 5000);
 
 // LOGOUT
 setInterval(() => {
@@ -56,7 +56,7 @@ setInterval(() => {
       document.location.href = "/";
     }
   }, 3000);
-}, 1000);
+}, 5000);
 
 // LOGIN
 setInterval(() => {
@@ -64,7 +64,6 @@ setInterval(() => {
     let command = document.getElementById("recognised").innerText;
     let str = command.split(" ");
     if ((str.includes("log") && str.includes("in")) || str.includes("login")) {
-      // document.location.href = "/search";
       document.querySelector(".log-in").click();
     }
     if (
@@ -79,8 +78,6 @@ setInterval(() => {
     ) {
       document.querySelector(".sign-up").click();
     }
-    if (str.includes("log") && str.includes("in") && str.includes("google")) {
-      document.querySelector(".log-google").click();
-    }
+    console.log(str);
   }, 3000);
-}, 1000);
+}, 5000);

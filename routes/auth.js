@@ -30,10 +30,11 @@ router.get("/facebook", passport.authenticate("facebook"));
 router.get(
   "/facebook/callback",
   passport.authenticate("facebook", {
-    successRedirect: "/",
+    successRedirect: "/search",
     failureRedirect: "/auth/login"
   })
 );
+////
 
 router.post("/signup", (req, res, next) => {
   const username = req.body.username;

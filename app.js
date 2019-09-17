@@ -76,6 +76,36 @@ passport.use(
       });
   })
 );
+
+const FacebookStrategy = require("passport-facebook").Strategy;
+
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: process.env.FACEBOOK_ClientID,
+      clientSecret: process.env.FACEBOOK_ClientSECRET,
+      callbackURL: `http://localhost:${process.env.PORT}/search`
+    },
+    (accessToken, refreshToken, profile, done) => {
+      User.findOne({ facebookId: profile.id })
+        .then(found => {
+          if (found !== null) {
+            done(null, found);
+          } else {
+            return User.create({ facebookId: profile.id }).then(dbUser => {
+              done(null, dbUser);
+            });
+          }
+        })
+        .catch(err => {
+          done(err);
+        });
+    }
+  )
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 app.use(express.static(path.join(__dirname, "public")));
