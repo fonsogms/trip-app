@@ -94,28 +94,44 @@
       font-size: 16px;
       cursor: pointer;
     }
+
+    a {
+      text-decoration: none;
+      color: white;
+    }
   </style>
-  <title>Login</title>
+  <title>Home Page</title>
 </head>
 
 <body>
   <header>
     <h1>Welcolme to Iter</h1>
-    <div class="signup">
+    {{!-- SIGN-UP --}}
+    <form action="/auth/signup" class="signup" method='POST'>
       <p id="recognised" style="display: none"></p>
       <input type="text" placeholder="Username" name="username">
-      <input type="password" placeholder="Password" name="psw">
-      <button class="btn fb"><i class="fa fa-sign-in"></i> Sign-Up</button>
-    </div>
-    <form action="/">
-      <input type="text" placeholder="Username" name="username">
-      <input type="password" placeholder="Password" name="psw">
-      <button class="btn " type="submit">Login</button>
+      <input type="password" placeholder="Password" name="password">
+      <button class="btn sign-up"><i class="fa fa-sign-in"></i> Sign-Up</button>
     </form>
+
+    {{!--LOGIN --}}
+    <form action="/auth/login" method="POST">
+      <input type="text" placeholder="Username" name="username">
+      <input type="password" placeholder="Password" name="password">
+      <button class="btn log-in" type="submit">Login</button>
+      {{#if message}}
+      <div class="btn" style="background-color:red; margin: 0 18%;">
+        {{message}}
+      </div>
+      {{/if}}
+    </form>
+
+    {{!-- SOCIAL LOGIN --}}
     <div class="login">
-      <button class="btn fb"><i class="fa fa-facebook"> </i> Login with Facebook</button>
-      <button class="btn gg"><i class="fa fa-google"> </i> Login with Google</button>
+      <button class=" btn fb log-fb"><i class="fa fa-facebook"> </i> <a href="/auth/facebook">Login with
+          Facebook</a></button>
     </div>
+
   </header>
   <script src="/javascripts/script_artyom.js"></script>
 

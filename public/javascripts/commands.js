@@ -53,7 +53,7 @@ setInterval(() => {
       str.includes("logout") ||
       (str.includes("log") && str.includes("out"))
     ) {
-      document.location.href = "/login";
+      document.location.href = "/";
     }
   }, 3000);
 }, 1000);
@@ -63,13 +63,24 @@ setInterval(() => {
   setTimeout(() => {
     let command = document.getElementById("recognised").innerText;
     let str = command.split(" ");
+    if ((str.includes("log") && str.includes("in")) || str.includes("login")) {
+      // document.location.href = "/search";
+      document.querySelector(".log-in").click();
+    }
     if (
-      (str.includes("login") && str.includes("facebook")) ||
-      (str.includes("sign") && str.includes("up")) ||
-      str.includes("login") ||
-      (str.includes("log") && str.includes("in") && str.includes("google"))
+      (str.includes("login") || (str.includes("log") && str.includes("in"))) &&
+      str.includes("facebook")
     ) {
-      document.location.href = "/search";
+      document.querySelector(".log-fb").click();
+    }
+    if (
+      (str.includes("sign") && str.includes("up")) ||
+      str.includes("signup")
+    ) {
+      document.querySelector(".sign-up").click();
+    }
+    if (str.includes("log") && str.includes("in") && str.includes("google")) {
+      document.querySelector(".log-google").click();
     }
   }, 3000);
 }, 1000);
