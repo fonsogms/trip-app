@@ -5,4 +5,6 @@ router.get("/", (req, res) => {
   res.render("02-search.hbs");
 });
 
+
+
 module.exports = router;

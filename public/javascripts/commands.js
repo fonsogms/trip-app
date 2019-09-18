@@ -55,6 +55,7 @@ setInterval(() => {
     ) {
       document.location.href = "/";
     }
+    console.log(str);
   }, 3000);
 }, 5000);
 
