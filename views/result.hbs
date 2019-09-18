@@ -40,25 +40,53 @@
       <li>Phone: </li>
     </ul>
   </div>
+{{#each itinerary}}
   <div>
-    <h1 style="text-align: center">DAY 1</h1>
-    <h2 style="text-align: center">RESTAURANTS</h2>
-    <button class="accordion" style="text-align: center">Restaurant Name</button>
+    <h1 style="text-align: center">DAY {{this.day}}</h1>
+   <h2 style="text-align: center">RESTAURANTS</h2>
+   {{#each this.restaurants}}
+    
+    <button class="accordion" style="text-align: center">{{this.name}}</button>
     <div class="panel">
-      <img src="" alt="">
-      <h3>Address</h3>
-    </div>
+      
+      <img src={{this.image_url}} alt="">
 
-    <h2 style="text-align: center">SIGHTS</h2>
-    <button class="accordion" style="text-align: center">Place Name</button>
+      <h3>{{this.location.address1}} {{this.location.address2}} {{this.location.city}} {{this.location.zip_code}}</h3>
+      <button><a href={{this.url}}>Check here the reviews</a> </button>
+    </div>
+    {{/each}}
+  
+  <h2 style="text-align: center">SIGHTS</h2>
+
+  {{#each this.monuments}}
+    <button class="accordion" style="text-align: center">{{this.name}}</button>
     <div class="panel">
-      <img src="" alt="">
+      <img src={{this.image_url}} alt="">
       <h3>Description</h3>
       <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto maiores veritatis ducimus dolor porro error
         modi corporis quae, beatae sit inventore quo neque incidunt nobis dignissimos excepturi, ullam, animi est.</p>
-    </div>
-    <p id="recognised" style="display: none"></p>
+      <h3>{{this.location.address1}} {{this.location.address2}} {{this.location.city}} {{this.location.zip_code}}</h3>
+      <button><a href={{this.url}}>Check here the reviews</a> </button>
 
+    </div>
+    
+    {{/each}}
+    <h2 style="text-align: center">Museums</h2>
+
+    {{#each this.museums}}
+    <button class="accordion" style="text-align: center">{{this.name}}</button>
+    <div class="panel">
+      <img src={{this.image_url}} alt="">
+      <h3>Description</h3>
+      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto maiores veritatis ducimus dolor porro error
+        modi corporis quae, beatae sit inventore quo neque incidunt nobis dignissimos excepturi, ullam, animi est.</p>
+      <button><a href={{this.url}}>Check here the reviews</a> </button>
+
+    </div>
+    {{/each}}
+    {{/each}}
+
+    <p id="recognised" style="display: none"></p>
     <script>
       var acc = document.getElementsByClassName("accordion");
       var i;

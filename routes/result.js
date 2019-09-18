@@ -25,8 +25,9 @@ router.get("/", (req, res) => {
   let days= req.query.days;
   let itinerary=[];
   for (let i=1;i<=days;i++){
-   itinerary.push(i);
+    itinerary.push({day:i,monuments:[],museums:[],restaurants:[]})
   }
+  console.log(itinerary)
   console.log(city, days)
   
   //Get hotels based on a city!!
@@ -39,12 +40,98 @@ router.get("/", (req, res) => {
     const firstResult = response.jsonBody.businesses.slice(0,4);
     let ordered=firstResult.sort(function(a, b) {
       return parseFloat(b.review_count)-parseFloat(a.review_count);
-  });
-    const prettyJson = JSON.stringify(ordered, null, 4);
+    });
+    let hotelCoordinates=[ordered[0].coordinates.latitude,ordered[0].coordinates.longitude];
     
-    //console.log("Empieza aqui",prettyJson);
+    const searchMonuments={
+    sort: "rating",
+    categories: "landmarks",
+    latitude:hotelCoordinates[0],
+    longitude:hotelCoordinates[1],
+    radius:3000,
+  }
+    client.search(searchMonuments).then(data=>{
+      const secondResult = data.jsonBody.businesses.slice(0,20);
+      let orderedMon=secondResult.sort(function(a, b) {
+      return parseFloat(b.review_count)-parseFloat(a.review_count);
+       });
+       let numbers=[0,1,2,3,4,5,6,7,8];
+
+       let c=0;
+      for(let i=0; i<itinerary.length ; i +=1){
+          itinerary[i].monuments.push(orderedMon[c]);
+          itinerary[i].monuments.push(orderedMon[c+1]);
+          c+=2
+      }
+
+
+         
+       
+       console.log(itinerary[0].monuments,itinerary[1].monuments, itinerary[2].monuments,);
+      //console.log(secondResult)
+      const searchMuseums={
+        sort: "rating",
+        categories: "museums",
+        latitude:hotelCoordinates[0],
+        longitude:hotelCoordinates[1],
+        radius:3000,}
+      client.search(searchMuseums).then(data=>{
+        const thirdResult = data.jsonBody.businesses;
+        let orderedMus=thirdResult.sort(function(a, b) {
+        return parseFloat(b.review_count)-parseFloat(a.review_count);
+         });
+         let d=0;
+         for(let i=0; i<itinerary.length ; i +=1){
+          itinerary[i].museums.push(orderedMus[d]);
+          itinerary[i].museums.push(orderedMus[d+1]);
+          d+=2
+          }
+
+       //  console.log(thirdResult)
+        const searchRestaurants={
+          sort: "rating",
+          categories: "restaurants",
+          latitude:hotelCoordinates[0],
+          longitude:hotelCoordinates[1],
+          radius:3000,}
+        
+        client.search(searchRestaurants).then(data=>{
+          const fourthResult = data.jsonBody.businesses;
+
+          let orderedRes=fourthResult.sort(function(a, b) {
+          return parseFloat(b.review_count)-parseFloat(a.review_count);
+          });
+          let e=0;
+          for(let i=0; i<itinerary.length ; i +=1){
+            itinerary[i].restaurants.push(orderedRes[e]);
+            itinerary[i].restaurants.push(orderedRes[e+1]);
+            itinerary[i].restaurants.push(orderedRes[e+2]);
+
+            e+=3
+            }
+            console.log(itinerary[0].restaurants[0]);
+            res.render("result.hbs",{city:city, ordered:ordered[0],itinerary:itinerary});
+            return;
+        //  console.log(fourthResult)
+
+        })
+        .catch(err=>{
+          console.log(err);
+        })
+      }).catch(err=>{
+        console.log(err)
+      }) 
+    }).catch(err=>{
+      console.log(err)
+    })
+
+
+    // const prettyJson = JSON.stringify(ordered[0], null, 4);
+    // console.log("Empieza aqui",prettyJson);
+
+
     console.log("acaba aqui")
-    res.render("result.hbs",{city:city, ordered:ordered[0]});
+    
   }).catch(e => {
     console.log(e);
   });
