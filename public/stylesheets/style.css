@@ -46,4 +46,9 @@ header {
   display: none;
   overflow: hidden; }
 
+.img-url {
+  height: 200px;
+  background-size: cover;
+  background-position: 50%; }
+
 /*# sourceMappingURL=style.css.map */

@@ -9,7 +9,7 @@ function startContinuousArtyom() {
   setTimeout(function() {
     artyom
       .initialize({
-        lang: "en-US",
+        lang: "en-GB",
         continuous: true, // Artyom will listen forever
         listen: true, // Start recognizing
         debug: true, // Show everything in the console
@@ -17,7 +17,8 @@ function startContinuousArtyom() {
       })
       .then(function() {
         console.log("Ready to work!");
-      });
+      })
+      .catch(err => console.log(err));
     artyom.redirectRecognizedTextOutput(function(text, isFinal) {
       recognised.innerText = text;
       // console.log(text);
