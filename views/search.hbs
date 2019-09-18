@@ -20,8 +20,18 @@
       days</h2>
     <p id="recognised" style="display: none"></p>
   </header>
-  <script src="/javascripts/script_artyom.js"></script>
+<form id="form" action="/result" method="get">
 
+  <label for="city">Select city</label><br />
+  <input type="text" name="city" />
+
+  <label for="days">Number of days</label><br />
+  <input type="text" name="days" />
+  <button type="submit">Submit</button>
+</form>
+
+
+  <script src="/javascripts/script_artyom.js"></script>
 </body>
 
 </html>
