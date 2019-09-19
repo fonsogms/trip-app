@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <link rel="stylesheet" href="/stylesheets/style.css" />
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <!-- <script src="../public/artyom.js"></script> -->
   <script src="/javascripts/artyom.window.min.js"></script>
   <script src="/javascripts/commands.js"></script>
@@ -16,19 +17,16 @@
 <body>
   <header>
     <h1 style="color: grey; text-align: center; padding-top: 50px">ITER</h1>
-    <h2 id="demo" style="color: grey; text-align: center; padding-top: 50px">tell me your destination and amount of
-      days</h2>
+    <h2 id="demo" style="color: white; text-align: center; padding: 50px 70px 0 70px; font-size: 100%;" ;>Tell me the
+      name of a
+      city and how many days you would like to stay. </h2>
+    <br>
+    <h2 id="demo" style="color: white; text-align: center; font-size: 100%;" ;>I will plan an
+      itinerary for you.</h2>
+
     <p id="recognised" style="display: none"></p>
   </header>
-<form id="form" action="/result" method="get">
 
-  <label for="city">Select city</label><br />
-  <input type="text" name="city" />
-
-  <label for="days">Number of days</label><br />
-  <input type="text" name="days" />
-  <button type="submit">Submit</button>
-</form>
 
 
   <script src="/javascripts/script_artyom.js"></script>
