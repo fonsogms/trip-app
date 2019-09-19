@@ -33,7 +33,6 @@ router.get("/", (req, res) => {
   }
   // console.log(itinerary);
   // console.log(city, days);
-
   //Get hotels based on a city!!
   const searchHotel = {
     sort: "rating",
@@ -80,7 +79,6 @@ router.get("/", (req, res) => {
               c += 1;
             }
           }
-
           //console.log(itinerary[0].monuments,itinerary[1].monuments, itinerary[2].monuments,);
           //console.log(secondResult)
           const searchMuseums = {
@@ -114,9 +112,8 @@ router.get("/", (req, res) => {
                 categories: "restaurants",
                 latitude: hotelCoordinates[0],
                 longitude: hotelCoordinates[1],
-                radius: 4000,
+                radius: 4000
               };
-
               client
                 .search(searchRestaurants)
                 .then(data => {
@@ -147,10 +144,10 @@ router.get("/", (req, res) => {
                     .then(response => {
                       let busq = response.data.query.pages;
                       let place = Object.keys(busq)[0];
-                      let extracts=busq[place].extract;
+                      let extracto=busq[place].extract;
+                      console.log(extracto)
                       //console.log(place);
                       //console.log("hey: ", extracts);
-                      
 
                       
                       User.findById(req.user._id)
@@ -162,7 +159,7 @@ router.get("/", (req, res) => {
                         city: city,
                         hotel: randomHotel,
                         plan: itinerary,
-                        extracts:extracts,
+                        extract:extracto,
                             }).then(()=>{
                               res.redirect("/user-results")
                             })
@@ -172,7 +169,7 @@ router.get("/", (req, res) => {
                         city: city,
                         hotel: randomHotel,
                         plan: itinerary,
-                        extracts:extracts,
+                        extract:extracto,
                           })
                           .then(newItinerary=>{
                             //update users itinerary-id
@@ -215,13 +212,11 @@ router.get("/", (req, res) => {
         });
       // const prettyJson = JSON.stringify(ordered[0], null, 4);
       // console.log("Empieza aqui",prettyJson);
-      console.log("acaba aqui");
+      // console.log("acaba aqui");
     })
     .catch(e => {
       console.log(e);
     });
-  // The places to go based on the hotel coordinates
-    
-  //yelp api search request based on hotel coordinates
+  
 });
 module.exports = router;

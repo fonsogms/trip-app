@@ -10,18 +10,20 @@ const Itinerary=require("../models/Itinerary")
 // const mongoose = require("mongoose");
 
  router.get("/",(req,res)=>{
-
+  let iti=req.user.itinerary;
     const userName=req.user;
   /*   User.findById(req.user._id)
     .populate("itinerary")
     .then(foundUser=>{
       console.log("------",foundUser) */
-      res.render("userResult",{iti:req.user.itinerary});
+      
+      res.render("userResult",{iti});
  /*    })
     .catch(err=>console.log("No Iti there",err)) */
  })
 
  router.get("/delete",(req,res)=>{
+   
   Itinerary.findByIdAndDelete(req.user.itinerary._id).then(()=>{
     User.findByIdAndUpdate(req.user._id, {itinerary:undefined}).then(()=>{
       res.redirect("/search")
