@@ -27,6 +27,7 @@ router.get("/", (req, res) => {
   for (let i=1;i<=days;i++){
     itinerary.push({day:i,monuments:[],museums:[],restaurants:[]})
   }
+
   console.log(itinerary)
   console.log(city, days)
   
@@ -41,40 +42,45 @@ router.get("/", (req, res) => {
     let ordered=firstResult.sort(function(a, b) {
       return parseFloat(b.review_count)-parseFloat(a.review_count);
     });
+    axios.get(`https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts%7C%7Cpageimages&exintro&explaintext&redirects=1&titles=${city}`);
     let hotelCoordinates=[ordered[0].coordinates.latitude,ordered[0].coordinates.longitude];
-    
+   // console.log(ordered[0]);
     const searchMonuments={
     sort: "rating",
     categories: "landmarks",
     latitude:hotelCoordinates[0],
     longitude:hotelCoordinates[1],
-    radius:3000,
+    radius:10000,
   }
     client.search(searchMonuments).then(data=>{
-      const secondResult = data.jsonBody.businesses.slice(0,20);
+      const secondResult = data.jsonBody.businesses.slice(0,30);
       let orderedMon=secondResult.sort(function(a, b) {
       return parseFloat(b.review_count)-parseFloat(a.review_count);
        });
-       let numbers=[0,1,2,3,4,5,6,7,8];
 
        let c=0;
       for(let i=0; i<itinerary.length ; i +=1){
-          itinerary[i].monuments.push(orderedMon[c]);
-          itinerary[i].monuments.push(orderedMon[c+1]);
-          c+=2
+          if(days<4){
+            itinerary[i].monuments.push(orderedMon[c]);
+            itinerary[i].monuments.push(orderedMon[c+1]);
+          c+=2;
+          }
+          else{
+        itinerary[i].monuments.push(orderedMon[c]);
+          c+=1;}
       }
 
 
          
        
-       console.log(itinerary[0].monuments,itinerary[1].monuments, itinerary[2].monuments,);
+       //console.log(itinerary[0].monuments,itinerary[1].monuments, itinerary[2].monuments,);
       //console.log(secondResult)
       const searchMuseums={
         sort: "rating",
         categories: "museums",
         latitude:hotelCoordinates[0],
         longitude:hotelCoordinates[1],
-        radius:3000,}
+        radius:10000,}
       client.search(searchMuseums).then(data=>{
         const thirdResult = data.jsonBody.businesses;
         let orderedMus=thirdResult.sort(function(a, b) {
@@ -82,9 +88,14 @@ router.get("/", (req, res) => {
          });
          let d=0;
          for(let i=0; i<itinerary.length ; i +=1){
-          itinerary[i].museums.push(orderedMus[d]);
-          itinerary[i].museums.push(orderedMus[d+1]);
+          if(days<4){
+            itinerary[i].museums.push(orderedMus[d]);
+            itinerary[i].museums.push(orderedMus[d+1]);
           d+=2
+          }
+          else{
+            itinerary[i].museums.push(orderedMus[d]);
+          d+=1}
           }
 
        //  console.log(thirdResult)
@@ -93,7 +104,7 @@ router.get("/", (req, res) => {
           categories: "restaurants",
           latitude:hotelCoordinates[0],
           longitude:hotelCoordinates[1],
-          radius:3000,}
+          radius:10000,}
         
         client.search(searchRestaurants).then(data=>{
           const fourthResult = data.jsonBody.businesses;
@@ -103,13 +114,28 @@ router.get("/", (req, res) => {
           });
           let e=0;
           for(let i=0; i<itinerary.length ; i +=1){
-            itinerary[i].restaurants.push(orderedRes[e]);
-            itinerary[i].restaurants.push(orderedRes[e+1]);
-            itinerary[i].restaurants.push(orderedRes[e+2]);
+            if(days<4){
+              itinerary[i].restaurants.push(orderedRes[e]);
+              itinerary[i].restaurants.push(orderedRes[e+1]);
+              itinerary[i].restaurants.push(orderedRes[e+2]);
 
             e+=3
+
             }
-            console.log(itinerary[0].restaurants[0]);
+            else{
+              itinerary[i].restaurants.push(orderedRes[e]);
+            itinerary[i].restaurants.push(orderedRes[e+1]);
+            e+=2
+            }
+            }
+          //  console.log(itinerary[0].restaurants[0]);
+            axios.get(`https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts%7C%7Cpageimages&exintro&explaintext&redirects=1&titles=${city}`)
+            .then(response=>{
+              let busq=response.data.query.pages;
+              let place=Object.keys(busq)[0];
+             console.log("hey: ",  busq)
+            })
+
             res.render("result.hbs",{city:city, ordered:ordered[0],itinerary:itinerary});
             return;
         //  console.log(fourthResult)

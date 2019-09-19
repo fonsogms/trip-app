@@ -21,7 +21,7 @@
     accusamus omnis laborum deleniti numquam officia, totam voluptatibus. Nulla aspernatur, aliquid magni dicta sint
     possimus consectetur esse beatae, nostrum, porro unde et obcaecati quam fuga amet.</p>
 
-
+  
   <!-- DAY TEMPLATE -->
   <button class="accordion" style="text-align: center">HOTEL</button>
   <div class="panel">
@@ -34,10 +34,9 @@
       soluta ratione exercitationem repellendus, modi distinctio eius, repellat doloribus, ut dolorum voluptate.</p>
     <ul>
       </li>
-      <li>Rating: </li>
-      <li>Address: </li>
-      <li>E-Mail: </li>
-      <li>Phone: </li>
+      <li>Rating:{{ordered.rating}} </li>
+      <li>Address:{{ordered.location.address1}} {{ordered.location.address2}} {{ordered.location.city}} {{ordered.location.zip_code}} </li>
+      <li>Phone:{{ordered.phone}}</li>
     </ul>
   </div>
 {{#each itinerary}}
@@ -59,6 +58,8 @@
   <h2 style="text-align: center">SIGHTS</h2>
 
   {{#each this.monuments}}
+      {{#if this}}
+
     <button class="accordion" style="text-align: center">{{this.name}}</button>
     <div class="panel">
       <img src={{this.image_url}} alt="">
@@ -69,11 +70,12 @@
       <button><a href={{this.url}}>Check here the reviews</a> </button>
 
     </div>
-    
+    {{/if}}
     {{/each}}
-    <h2 style="text-align: center">Museums</h2>
+    <h2 id="museums"style="text-align: center">Museums</h2>
 
     {{#each this.museums}}
+    {{#if this}}
     <button class="accordion" style="text-align: center">{{this.name}}</button>
     <div class="panel">
       <img src={{this.image_url}} alt="">
@@ -81,8 +83,17 @@
       <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto maiores veritatis ducimus dolor porro error
         modi corporis quae, beatae sit inventore quo neque incidunt nobis dignissimos excepturi, ullam, animi est.</p>
       <button><a href={{this.url}}>Check here the reviews</a> </button>
-
+    
     </div>
+        {{else}}
+        
+
+        <h1 id="ch">No more places available</h1>
+        <script>
+          document.getElementById("ch").remove();
+        </script>
+        
+    {{/if}}
     {{/each}}
     {{/each}}
 
