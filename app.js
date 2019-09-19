@@ -18,7 +18,9 @@ const User = require("./models/User");
 app.use(flash());
 
 mongoose
-  .connect("mongodb://localhost/trippingplanner", { useNewUrlParser: true })
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/trippingplanner", {
+    useNewUrlParser: true
+  })
   .then(x => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
@@ -119,7 +121,7 @@ passport.serializeUser((user, done) => {
 // when we need the information for the user, the deserializeUser function is called with the id that we previously serialized to fetch the user from the database
 passport.deserializeUser((id, done) => {
   User.findById(id)
-  .populate("itinerary")
+    .populate("itinerary")
     .then(dbUser => {
       done(null, dbUser);
     })
@@ -143,7 +145,7 @@ app.use("/search", search);
 const result = require("./routes/result");
 app.use("/result", result);
 
-const userResult=require("./routes/userResult");
-app.use("/user-results",userResult);
+const userResult = require("./routes/userResult");
+app.use("/user-results", userResult);
 
 module.exports = app;
