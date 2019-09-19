@@ -103,3 +103,18 @@ p {
   text-decoration: none;
   color: white;
 }
+.vocal-cmd {
+  background-color: black;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+.vocal-cmd h1,
+.vocal-cmd h2,
+.vocal-cmd p,
+.vocal-cmd li {
+  color: white;
+  padding-top: 0;
+  padding-left: 5%;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: normal;
+}
