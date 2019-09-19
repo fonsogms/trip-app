@@ -24,7 +24,6 @@ router.get("/", (req, res) => {
   }
   // console.log(itinerary);
   // console.log(city, days);
-
   //Get hotels based on a city!!
   const searchHotel = {
     sort: "rating",
@@ -34,13 +33,11 @@ router.get("/", (req, res) => {
   client
     .search(searchHotel)
     .then(response => {
-      const firstResult = response.jsonBody.businesses.slice(0, 4);
+      const firstResult = response.jsonBody.businesses.slice(0, 6);
       let ordered = firstResult.sort(function(a, b) {
         return parseFloat(b.review_count) - parseFloat(a.review_count);
       });
-      axios.get(
-        `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts%7C%7Cpageimages&exintro&explaintext&redirects=1&titles=${city}`
-      );
+
       let hotelCoordinates = [
         ordered[0].coordinates.latitude,
         ordered[0].coordinates.longitude
@@ -72,7 +69,6 @@ router.get("/", (req, res) => {
               c += 1;
             }
           }
-
           //console.log(itinerary[0].monuments,itinerary[1].monuments, itinerary[2].monuments,);
           //console.log(secondResult)
           const searchMuseums = {
@@ -106,9 +102,8 @@ router.get("/", (req, res) => {
                 categories: "restaurants",
                 latitude: hotelCoordinates[0],
                 longitude: hotelCoordinates[1],
-                radius: 10000
+                radius: 4000
               };
-
               client
                 .search(searchRestaurants)
                 .then(data => {
@@ -139,14 +134,19 @@ router.get("/", (req, res) => {
                     .then(response => {
                       let busq = response.data.query.pages;
                       let place = Object.keys(busq)[0];
-                      console.log("hey: ", busq);
+                      let extracts = busq[place].extract;
+                      console.log(place);
+                      console.log("hey: ", extracts);
+                      res.render("result.hbs", {
+                        city: city,
+                        ordered:
+                          ordered[Math.floor(Math.random() * ordered.length)],
+                        itinerary: itinerary,
+                        extracts: extracts
+                      });
+                      return;
                     });
-                  res.render("result.hbs", {
-                    city: city,
-                    ordered: ordered[0],
-                    itinerary: itinerary
-                  });
-                  return;
+
                   //  console.log(fourthResult)
                 })
                 .catch(err => {
@@ -168,7 +168,6 @@ router.get("/", (req, res) => {
       console.log(e);
     });
   // The places to go based on the hotel coordinates
-
   //yelp api search request based on hotel coordinates
 });
 module.exports = router;

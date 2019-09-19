@@ -6,40 +6,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  {{!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> --}}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/stylesheets/style.css">
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="/javascripts/artyom.window.min.js"></script>
   <script src="/javascripts/commands.js"></script>
-  <title>Document</title>
+  <title>Plan</title>
 </head>
 ​
 
 <body>
   <h1 style="text-transform: uppercase; text-align:center">{{city}}</h1>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet qui, sapiente accusantium porro laboriosam voluptate
-    alias voluptas ex obcaecati laborum, atque soluta dicta, odio autem minus ab molestiae nisi. Sapiente quisquam animi
-    atque amet! Neque aspernatur inventore minima rerum. Doloremque ratione ea eos eveniet consequuntur voluptate ipsum
-    quos, doloribus accusantium, recusandae placeat vero iure esse sunt exercitationem voluptas ab obcaecati laudantium
-    necessitatibus ducimus dolor voluptatibus officia suscipit. At, illum aliquid ipsam similique sequi aspernatur
-    accusamus omnis laborum deleniti numquam officia, totam voluptatibus. Nulla aspernatur, aliquid magni dicta sint
-    possimus consectetur esse beatae, nostrum, porro unde et obcaecati quam fuga amet.</p>
+  <button class="accordion" style="text-align: center; margin-bottom:20px">DESCRIPTION</button>
+  <div class="panel">
+    <p class="description">{{extracts}}</p>
+  </div>
   ​
   ​
   <!-- DAY TEMPLATE -->
   <button class="accordion" style="text-align: center; margin-bottom:20px">HOTEL</button>
   <div class="panel">
     <h2>{{ordered.name}}</h2>
-    <img style="height: 200px; margin-top: 20px" class="img-url" src={{ordered.image_url}} alt="">
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident, voluptatibus alias? Debitis, est inventore
-      fugit deleniti, ex, asperiores dolorem iure consectetur porro accusantium perspiciatis dolorum? Magni quasi sit
-      soluta ratione exercitationem repellendus, modi distinctio eius, repellat doloribus, ut dolorum voluptate.</p>
+    {{!-- <img style="height: 200px; margin-top: 20px" class="img-url" src={{ordered.image_url}} alt=""> --}}
+    <div style="background: url({{ordered.image_url}});margin-top: 20px; background-repeat: no-repeat" class="img-url">
+    </div>
     <ul>
-      </li>
-      <li>Rating:{{ordered.rating}} </li>
-      <li>Address:{{ordered.location.address1}} {{ordered.location.address2}} {{ordered.location.city}}
+      <p>Rating</p>
+      <li>{{ordered.rating}} </li>
+      <p>Address</p>
+      <li>{{ordered.location.address1}} | {{ordered.location.address2}} | {{ordered.location.city}} |
         {{ordered.location.zip_code}} </li>
-      <li>Phone:{{ordered.phone}}</li>
+      <p>Phone</p>
+      <li>{{ordered.phone}}</li>
+
+      <button class="link-btn"><a href={{ordered.url}}>More Info</a></button>
     </ul>
   </div>
 
@@ -58,10 +58,14 @@
   <button class="accordion" style="text-align: center">{{this.name}}</button>
   <div class="panel">
 
-    <img class="img-url" src={{this.image_url}} alt="">
+    <div style="background: url({{this.image_url}}); background-repeat: no-repeat; background-size: cover;
+  background-position: 40%; min-height: 200px;" class="img-url">
+      {{!-- <img class="img-url" src={{this.image_url}} alt=""> --}}
+    </div>
 
-    <h3>{{this.location.address1}} {{this.location.address2}} {{this.location.city}} {{this.location.zip_code}}</h3>
-    <button class="btn"><a style="text-decoration:none" href={{this.url}}>Check here the reviews</a> </button>
+    <h3>{{this.location.address1}} | {{this.location.city}} | {{this.location.zip_code}}
+    </h3>
+    <button class="link-btn"><a href={{this.url}}>More info</a> </button>
   </div>
   {{!-- </div> --}}
   {{/each}}
@@ -73,12 +77,14 @@
   ​
   <button class="accordion" style="text-align: center">{{this.name}}</button>
   <div class="panel">
-    <img class="img-url" src={{this.image_url}} alt="">
-    <h3>Description</h3>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto maiores veritatis ducimus dolor porro error
-      modi corporis quae, beatae sit inventore quo neque incidunt nobis dignissimos excepturi, ullam, animi est.</p>
-    <h3>{{this.location.address1}} {{this.location.address2}} {{this.location.city}} {{this.location.zip_code}}</h3>
-    <button class"btn"><a style="text-decoration:none" href={{this.url}}>Check here the reviews</a> </button>
+    {{!-- <img class="img-url" src={{this.image_url}} alt=""> --}}
+    <div style="background: url({{this.image_url}}); background-repeat: no-repeat; background-size: cover;
+  background-position: 40%; min-height: 200px;" class="img-url">
+    </div>
+
+    <h3>{{this.location.address1}} | {{this.location.city}} | {{this.location.zip_code}}
+    </h3>
+    <button class="link-btn"><a href={{this.url}}>More info</a> </button>
     ​
   </div>
   {{/if}}
@@ -89,11 +95,13 @@
   {{#if this}}
   <button class="accordion" style="text-align: center">{{this.name}}</button>
   <div class="panel">
-    <img class="img-url" src={{this.image_url}} alt="">
-    <h3>Description</h3>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto maiores veritatis ducimus dolor porro error
-      modi corporis quae, beatae sit inventore quo neque incidunt nobis dignissimos excepturi, ullam, animi est.</p>
-    <button class"btn"><a style="text-decoration:none" href={{this.url}}>Check here the reviews</a> </button>
+    {{!-- <img class="img-url" src={{this.image_url}} alt=""> --}}
+    <div style="background: url({{this.image_url}}); background-repeat: no-repeat; background-size: cover;
+  background-position: 40%; min-height: 200px;" class="img-url">
+    </div>
+    <h3>{{this.location.address1}} | {{this.location.city}} | {{this.location.zip_code}}
+    </h3>
+    <button class="link-btn"><a href={{this.url}}>More info</a> </button>
   </div>
   {{else}}
   <h1 id="ch">No more places available</h1>

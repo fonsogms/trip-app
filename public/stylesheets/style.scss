@@ -5,6 +5,36 @@ header {
   min-height: 800px;
 }
 
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+li {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+}
+
+.description {
+  font-weight: normal;
+}
+
 .day {
   list-style-type: none;
   /* Remove bullets */
@@ -53,7 +83,23 @@ header {
 }
 
 .img-url {
-  height: 200px;
-  background-size: cover;
-  background-position: 50%;
+  background-repeat: no-repeat;
+  height: 300px;
+  width: 100%;
+  // background-position: cover;
+  background-size: 100%;
+  align-content: center;
+}
+
+// RESULT CSS
+.link-btn {
+  background-color: red;
+  padding: 10px 5px;
+  border: none;
+
+}
+
+.link-btn a {
+  text-decoration: none;
+  color: white;
 }
