@@ -135,8 +135,8 @@ router.get("/", (req, res) => {
                       let busq = response.data.query.pages;
                       let place = Object.keys(busq)[0];
                       let extracts = busq[place].extract;
-                      console.log(place);
-                      console.log("hey: ", extracts);
+                      // console.log(place);
+                      // console.log("hey: ", extracts);
                       res.render("result.hbs", {
                         city: city,
                         ordered:
@@ -162,7 +162,7 @@ router.get("/", (req, res) => {
         });
       // const prettyJson = JSON.stringify(ordered[0], null, 4);
       // console.log("Empieza aqui",prettyJson);
-      console.log("acaba aqui");
+      // console.log("acaba aqui");
     })
     .catch(e => {
       console.log(e);

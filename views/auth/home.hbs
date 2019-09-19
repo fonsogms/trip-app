@@ -107,7 +107,9 @@
 <body>
   <header>
     <p id="recognised" style="display: none"></p>
-    <h1>Welcolme to Iter</h1>
+    <h1>ITER</h1>
+    <h2 style="color:white; text-align:center;">the web app based on Artificial Intelligence</h2>
+    <br>
     {{!-- SIGN-UP --}}
     <form action="/auth/signup" class="signup" method='POST'>
 
@@ -118,7 +120,7 @@
 
     {{!--LOGIN --}}
     <form action="/auth/login" method="POST">
-      <input type="text" placeholder="Username" name="username" autocomplete="username">
+      <input id="username" type="text" placeholder="Username" name="username" autocomplete="username">
       <input type="password" placeholder="Password" name="password" autocomplete="password">
       <button class="btn log-in" type="submit">Login</button>
       {{#if message}}
