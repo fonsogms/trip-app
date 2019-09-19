@@ -2,12 +2,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ItinerarySchema = new Schema({
-    day:String,
-    monuments:Array,
-    museums:Array,
-    restaurants:Array
+    city:String,
+    hotel:Object,
+    plan:Object,
+    extract:String
+    
 });
 
-const Itinerary = mongoose.model("User", ItinerarySchema);
+const Itinerary = mongoose.model("Itinerary", ItinerarySchema);
 
 module.exports = Itinerary;

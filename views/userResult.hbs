@@ -16,31 +16,32 @@
 ​
 
 <body>
-  <h1 style="text-transform: uppercase; text-align:center">{{city}}</h1>
+  <button><a href="/user-results/delete">DELETE</a></button>
+  <h1 style="text-transform: uppercase; text-align:center">{{iti.city}}</h1>
   <p>{{extracts}}</p>
   ​
   ​
   <!-- DAY TEMPLATE -->
   <button class="accordion" style="text-align: center; margin-bottom:20px">HOTEL</button>
   <div class="panel">
-    <h2>{{ordered.name}}</h2>
-    <img style="height: 200px; margin-top: 20px" class="img-url" src={{ordered.image_url}} alt="">
+    <h2>{{iti.hotel.name}}</h2>
+    <img style="height: 200px; margin-top: 20px" class="img-url" src={{iti.hotel.image_url}} alt="">
     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident, voluptatibus alias? Debitis, est inventore
       fugit deleniti, ex, asperiores dolorem iure consectetur porro accusantium perspiciatis dolorum? Magni quasi sit
       soluta ratione exercitationem repellendus, modi distinctio eius, repellat doloribus, ut dolorum voluptate.</p>
     <ul>
       </li>
-      <li>Rating:{{ordered.rating}} </li>
-      <li>Address:{{ordered.location.address1}} {{ordered.location.address2}} {{ordered.location.city}}
-        {{ordered.location.zip_code}} </li>
-      <li>Phone:{{ordered.phone}}</li>
+      <li>Rating:{{iti.hotel.rating}} </li>
+      <li>Address:{{iti.hotel.location.address1}} {{iti.hotel.location.address2}} {{iti.hotel.location.city}}
+        {{iti.hotel.location.zip_code}} </li>
+      <li>Phone:{{iti.hotel.phone}}</li>
      
       <li>Check here for more information about the hotel <button><a href={{ordered.url}}>Click here</a></button></li>
     </ul>
   </div>
 
   {{!-- ITINERARY --}}
-  {{#each itinerary}}
+  {{#each iti.plan}}
   {{!-- <div> --}}
   {{!-- <button class="accordion" style="text-align: center">DAY {{this.day}}</button>
   <div class="panel"> --}}

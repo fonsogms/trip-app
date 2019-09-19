@@ -119,6 +119,7 @@ passport.serializeUser((user, done) => {
 // when we need the information for the user, the deserializeUser function is called with the id that we previously serialized to fetch the user from the database
 passport.deserializeUser((id, done) => {
   User.findById(id)
+  .populate("itinerary")
     .then(dbUser => {
       done(null, dbUser);
     })
@@ -141,5 +142,8 @@ app.use("/search", search);
 
 const result = require("./routes/result");
 app.use("/result", result);
+
+const userResult=require("./routes/userResult");
+app.use("/user-results",userResult);
 
 module.exports = app;
