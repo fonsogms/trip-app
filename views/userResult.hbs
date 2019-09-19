@@ -16,7 +16,7 @@
 ​
 
 <body>
-  <button><a href="/user-results/delete">Delete</a></button>
+  <button style="display: none;"><a class="delete-iti" style="display: none;" href="/user-results/delete">Delete</a></button>
   <h1 style="text-transform: uppercase; text-align:center">{{iti.city}}</h1>
   <button class="accordion" style="text-align: center; margin-bottom:20px">DESCRIPTION</button>
   <div class="panel">
@@ -29,7 +29,8 @@
   <div class="panel">
     <h2>{{iti.hotel.name}}</h2>
     {{!-- <img style="height: 200px; margin-top: 20px" class="img-url" src={{iti.hotel.image_url}} alt=""> --}}
-    <div style="background: url({{iti.hotel.image_url}});margin-top: 20px; background-repeat: no-repeat" class="img-url">
+    <div style="background: url({{iti.hotel.image_url}});margin-top: 20px; background-repeat: no-repeat"
+      class="img-url">
     </div>
     <ul>
       <p>Rating</p>

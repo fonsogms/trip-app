@@ -103,6 +103,16 @@ setInterval(() => {
   // }, 3000);
 }, 1000);
 
+// DELETE PLAN
+setInterval(() => {
+  let command = document.getElementById("recognised").innerText;
+  let str = command.split(" ");
+  if (str.includes("delete")) {
+    document.querySelector(".delete-iti").click();
+    clearInterval(searchInterval);
+  }
+}, 1000);
+
 // LOGOUT
 setInterval(() => {
   // setTimeout(() => {
