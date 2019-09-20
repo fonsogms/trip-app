@@ -9,7 +9,7 @@ function startContinuousArtyom() {
   setTimeout(function() {
     artyom
       .initialize({
-        lang: "en-GB",
+        lang: "en-US",
         continuous: true, // Artyom will listen forever
         listen: true, // Start recognizing
         debug: true, // Show everything in the console
