@@ -76,7 +76,7 @@ const searchInterval = setInterval(() => {
     .catch(err => {
       console.log(err);
     });
-}, 250);
+}, 50);
 // const stopInterval = setInterval(searchInterval, 250);
 
 // RESULT -> BACK TO SEARCH
