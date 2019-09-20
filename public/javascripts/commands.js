@@ -90,7 +90,7 @@ setInterval(() => {
       str.includes("city")) &&
     str.includes("change")
   ) {
-    document.location.href = "/search";
+    document.location.href = "/user-results/delete";
     artyom.say(`OK`, {
       onStart: function() {
         console.log("Talking ...");
