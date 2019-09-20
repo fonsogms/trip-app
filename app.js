@@ -86,7 +86,7 @@ passport.use(
     {
       clientID: process.env.FACEBOOK_ClientID,
       clientSecret: process.env.FACEBOOK_ClientSECRET,
-      callbackURL: `https://iter-app.herokuapp.com/search`
+      callbackURL: `https://iter-app.herokuapp.com/auth/facebook/callback`
     },
     (accessToken, refreshToken, profile, done) => {
       User.findOne({ facebookId: profile.id })
