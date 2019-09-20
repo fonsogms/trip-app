@@ -15,6 +15,7 @@ const app = express();
 const session = require("express-session");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/User");
+const MongoStore=require("connect-mongo")(session);
 app.use(flash());
 
 mongoose
@@ -129,6 +130,15 @@ passport.deserializeUser((id, done) => {
       done(err);
     });
 });
+app.use(
+  session({
+    secret: "irongenerator",
+    resave: true,
+    saveUninitialized: true,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection
+    })
+  }))
 
 // default value for title local
 app.locals.title = "Express - Generated with IronGenerator";
