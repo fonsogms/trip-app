@@ -1,16 +1,5 @@
 // SEARCH
-axios
-.get(
-  "https://pkgstore.datahub.io/core/world-cities/world-cities_json/data/5b3dd46ad10990bca47b04b4739a02ba/world-cities_json.json"
-)
-.then(response => {
-  for (const city of response.data) {
-    cities.push(city.name);
-  }
-})
-.catch(err => {
-  console.log(err);
-});
+
 const searchInterval = setInterval(() => {
   let day = "";
   let city = "";
@@ -23,7 +12,14 @@ const searchInterval = setInterval(() => {
   days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "weekend", "week-end"];
   // cities = ["berlin", "london", "rome", "paris", "lisbon", "vienna", "venice"];
   cities = [];
- 
+  axios
+    .get(
+      "https://pkgstore.datahub.io/core/world-cities/world-cities_json/data/5b3dd46ad10990bca47b04b4739a02ba/world-cities_json.json"
+    )
+    .then(response => {
+      for (const city of response.data) {
+        cities.push(city.name);
+      }
       // console.log(cities);
       // let day = "";
       for (let elOfDay of days) {
@@ -76,7 +72,10 @@ const searchInterval = setInterval(() => {
       //   });
       //   clearInterval(searchInterval);
       // }
-    
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }, 250);
 // const stopInterval = setInterval(searchInterval, 250);
 
