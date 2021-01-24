@@ -15,19 +15,19 @@ const app = express();
 const session = require("express-session");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/User");
-const MongoStore=require("connect-mongo")(session);
+const MongoStore = require("connect-mongo")(session);
 app.use(flash());
 
 mongoose
   .connect(process.env.MONGODB_URI || "mongodb://localhost/trippingplanner", {
-    useNewUrlParser: true
+    useNewUrlParser: true,
   })
-  .then(x => {
+  .then((x) => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
     );
   })
-  .catch(err => {
+  .catch((err) => {
     console.error("Error connecting to mongo", err);
   });
 
@@ -50,22 +50,22 @@ app.use(
   require("node-sass-middleware")({
     src: path.join(__dirname, "public"),
     dest: path.join(__dirname, "public"),
-    sourceMap: true
+    sourceMap: true,
   })
 );
-
+console.log(process.env.SESSION_SECRET);
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     cookie: { maxAge: 24 * 60 * 60 },
     saveUninitialized: false,
-    resave: false
+    resave: false,
   })
 );
 passport.use(
   new LocalStrategy((username, password, done) => {
     User.findOne({ username: username })
-      .then(found => {
+      .then((found) => {
         if (found === null) {
           done(null, false, { message: "No user with such username" });
         } else if (!bcrypt.compareSync(password, found.password)) {
@@ -74,7 +74,7 @@ passport.use(
           done(null, found);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         done(err, false);
       });
   })
@@ -87,20 +87,20 @@ passport.use(
     {
       clientID: process.env.FACEBOOK_ClientID,
       clientSecret: process.env.FACEBOOK_ClientSECRET,
-      callbackURL: `https://iter-app.herokuapp.com/auth/facebook/callback`
+      callbackURL: `https://iter-app.herokuapp.com/auth/facebook/callback`,
     },
     (accessToken, refreshToken, profile, done) => {
       User.findOne({ facebookId: profile.id })
-        .then(found => {
+        .then((found) => {
           if (found !== null) {
             done(null, found);
           } else {
-            return User.create({ facebookId: profile.id }).then(dbUser => {
+            return User.create({ facebookId: profile.id }).then((dbUser) => {
               done(null, dbUser);
             });
           }
         })
-        .catch(err => {
+        .catch((err) => {
           done(err);
         });
     }
@@ -123,10 +123,10 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((id, done) => {
   User.findById(id)
     .populate("itinerary")
-    .then(dbUser => {
+    .then((dbUser) => {
       done(null, dbUser);
     })
-    .catch(err => {
+    .catch((err) => {
       done(err);
     });
 });
@@ -136,9 +136,10 @@ app.use(
     resave: true,
     saveUninitialized: true,
     store: new MongoStore({
-      mongooseConnection: mongoose.connection
-    })
-  }))
+      mongooseConnection: mongoose.connection,
+    }),
+  })
+);
 
 // default value for title local
 app.locals.title = "Express - Generated with IronGenerator";
